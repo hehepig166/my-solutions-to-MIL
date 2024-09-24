@@ -1,6 +1,7 @@
-## 12
+## resources
 
-* mathematics in LEAN https://leanprover-community.github.io/mathematics_in_lean/index.html
+* MIL index https://leanprover-community.github.io/mathematics_in_lean/index.html
+* MIL source https://github.com/leanprover-community/mathematics_in_lean
 * API documentation https://leanprover-community.github.io/mathlib4_docs/
 * contrl_space
 
@@ -33,13 +34,3 @@
   test
 
 
-
-
-$$
-\begin{aligned}
-3 + x & \equiv 2^2 \pmod{3^3} \\
-5 + x & \equiv 3^2 \pmod{5^3} \\
-7 + x & \equiv 5^2 \pmod{7^3} \\
-\end{aligned}
-$$
-what is $x \mod{105}$ ?
