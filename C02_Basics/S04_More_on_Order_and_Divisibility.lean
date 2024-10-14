@@ -69,9 +69,17 @@ example : min (min a b) c = min a (min b c) := by
       apply min_le_right
 
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
-  sorry
+  apply le_min
+  . show min a b + c ≤ a + c
+    apply add_le_add_right
+    apply min_le_left
+  . show min a b + c ≤ b + c
+    apply add_le_add_right
+    apply min_le_right
+
 example : min a b + c = min (a + c) (b + c) := by
-  sorry
+  exact Eq.symm (min_add_add_right a b c)
+
 #check (abs_add : ∀ a b : ℝ, |a + b| ≤ |a| + |b|)
 
 example : |a| - |b| ≤ |a - b| :=
