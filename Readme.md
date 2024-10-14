@@ -30,7 +30,11 @@
   * `norm_num` can be used to solve concrete numeric goals
   * `apply?`
   * 
-* 
-  test
+* S04 More examples using apply and rw
+  * currying
+  * `show`
+  * `intro`
+  * `repeat`
 
+* test
 

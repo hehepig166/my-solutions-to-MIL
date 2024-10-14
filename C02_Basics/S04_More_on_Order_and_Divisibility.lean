@@ -1,4 +1,5 @@
-import MIL.Common
+import Mathlib.Tactic
+import Mathlib.Util.Delaborators
 import Mathlib.Data.Real.Basic
 
 namespace C02S04
@@ -39,9 +40,34 @@ example : min a b = min b a := by
     apply min_le_left
 
 example : max a b = max b a := by
-  sorry
+  apply le_antisymm
+  repeat
+    apply max_le
+    apply le_max_right
+    apply le_max_left
+
 example : min (min a b) c = min a (min b c) := by
-  sorry
+  apply le_antisymm
+  . apply le_min
+    . show min (min a b) c ≤ a
+      apply le_trans (min_le_left (min a b) c) (min_le_left a b)
+    . show min (min a b) c ≤ min b c
+      apply le_min
+      . apply le_trans
+        apply min_le_left
+        apply min_le_right
+      . apply min_le_right
+  . apply le_min
+    . show min a (min b c) ≤ min a b
+      apply le_min (min_le_left a _)
+      apply le_trans
+      apply min_le_right
+      apply min_le_left
+    . show min a (min b c) ≤ c
+      apply le_trans
+      apply min_le_right
+      apply min_le_right
+
 theorem aux : min a b + c ≤ min (a + c) (b + c) := by
   sorry
 example : min a b + c = min (a + c) (b + c) := by
@@ -80,5 +106,3 @@ variable (m n : ℕ)
 example : Nat.gcd m n = Nat.gcd n m := by
   sorry
 end
-
-
