@@ -29,7 +29,12 @@
     * `h.mpr : B -> A`
   * `norm_num` can be used to solve concrete numeric goals
   * `apply?`
-  * 
+  * Ctrl-space
+  * In Lean, a theorem named `A_of_B_of_C` establishes something of the form `A` from hypotheses of the form `B` and `C`, where `A`, `B`, and `C` approximate the way we might read the goals out loud
+  * refine / exact / apply ?
+  * Mathlib tends to favor `≤` over `≥`
+  * `linarith`
+  * use `constructor` tactic to split a conjunction to two goals
 * S04 More examples using apply and rw
   * currying
   * `show`

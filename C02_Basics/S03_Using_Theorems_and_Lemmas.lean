@@ -98,16 +98,23 @@ example (h₀ : d ≤ e) : c + exp (a + d) ≤ c + exp (a + e) := by
 example : (0 : ℝ) < 1 := by norm_num
 
 example (h : a ≤ b) : log (1 + exp a) ≤ log (1 + exp b) := by
-  have h₀ : 0 < 1 + exp a := by sorry
+  have h₀ : 0 < 1 + exp a := by
+    --linarith [exp_pos a]
+    rw [show (0 : ℝ) = 0 + 0 by norm_num]
+    apply add_lt_add
+    . norm_num
+    . exact exp_pos a
   apply log_le_log h₀
-  sorry
+  apply add_le_add_left (exp_le_exp.mpr h)
 
 example : 0 ≤ a ^ 2 := by
   -- apply?
   exact sq_nonneg a
 
 example (h : a ≤ b) : c - exp b ≤ c - exp a := by
-  sorry
+  apply sub_le_sub_left _ c
+  exact exp_le_exp.mpr h
+
 
 example : 2 * a * b ≤ a ^ 2 + b ^ 2 := by
   have h : 0 ≤ a ^ 2 - 2 * a * b + b ^ 2
@@ -128,6 +135,20 @@ example : 2 * a * b ≤ a ^ 2 + b ^ 2 := by
   linarith
 
 example : |a * b| ≤ (a ^ 2 + b ^ 2) / 2 := by
-  sorry
+  have t : (0 : ℝ) < 2 := by norm_num
+  have h1 (x y : ℝ) : 0 ≤ x ^ 2 - 2 * x * y + y ^ 2
+  calc x ^ 2 - 2 * x * y + y ^ 2
+    _ = (x - y) ^ 2 := by ring
+    _ ≥ 0 := sq_nonneg (x - y)
+  have h2 : 2 * (a * b) ≤ a ^ 2 + b ^ 2 := by linarith [h1 a b]
+  have h3 : -2 * (a * b) ≤ a ^ 2 + b ^ 2 := by linarith [h1 a (-b)]
+  apply abs_le'.mpr
+  constructor
+  . show a * b ≤ (a ^ 2 + b ^ 2) / 2
+    apply (le_div_iff₀' t).mpr
+    exact h2
+  . show -(a * b) ≤ (a ^ 2 + b ^ 2) / 2
+    apply (le_div_iff₀ t).mpr
+    linarith
 
 #check abs_le'.mpr
