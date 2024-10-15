@@ -82,8 +82,10 @@ example : min a b + c = min (a + c) (b + c) := by
 
 #check (abs_add : ∀ a b : ℝ, |a + b| ≤ |a| + |b|)
 
-example : |a| - |b| ≤ |a - b| :=
-  sorry
+example : |a| - |b| ≤ |a - b| := by
+  apply tsub_le_iff_left.mpr
+  conv => lhs; rw [← add_sub_cancel b a]
+  apply abs_add
 end
 
 section
@@ -100,7 +102,17 @@ example : x ∣ x ^ 2 := by
   apply dvd_mul_left
 
 example (h : x ∣ w) : x ∣ y * (x * z) + x ^ 2 + w ^ 2 := by
-  sorry
+  apply dvd_add
+  apply dvd_add
+  . show x ∣ y * (x * z)
+    apply dvd_mul_of_dvd_right
+    apply dvd_mul_right
+  . show x ∣ x ^ 2
+    apply dvd_mul_left
+  . show x ∣ w ^ 2
+    apply dvd_trans h
+    apply dvd_mul_left
+
 end
 
 section
@@ -112,5 +124,6 @@ variable (m n : ℕ)
 #check (Nat.lcm_zero_left n : Nat.lcm 0 n = 0)
 
 example : Nat.gcd m n = Nat.gcd n m := by
-  sorry
+  exact Nat.gcd_comm m n
+
 end

@@ -35,6 +35,10 @@
   * `show`
   * `intro`
   * `repeat`
-
+  * `x ∣ y`, dvd
+  * `gcd`, `lcm`
+  
+* 
+  
 * test
 
