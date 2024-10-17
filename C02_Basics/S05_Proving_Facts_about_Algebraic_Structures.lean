@@ -139,8 +139,10 @@ example (h : ∀ x y z : α, x ⊓ (y ⊔ z) = x ⊓ y ⊔ x ⊓ z) : a ⊔ b �
   rw [inf_comm (a ⊔ b), h, ← sup_assoc, inf_comm c a, absorb2, inf_comm c b]
 
 example (h : ∀ x y z : α, x ⊔ y ⊓ z = (x ⊔ y) ⊓ (x ⊔ z)) : a ⊓ (b ⊔ c) = a ⊓ b ⊔ a ⊓ c := by
+  rw [h]
+  rw [sup_comm (a ⊓ b), absorb2]
+  rw [sup_comm (a ⊓ b), h, sup_comm c a, ← inf_assoc, absorb1, sup_comm c b]
 
-  sorry
 
 end
 
@@ -154,13 +156,25 @@ variable (a b c : R)
 #check (mul_nonneg : 0 ≤ a → 0 ≤ b → 0 ≤ a * b)
 
 example (h : a ≤ b) : 0 ≤ b - a := by
-  sorry
+  rw [← sub_self a, sub_eq_add_neg, add_comm, sub_eq_add_neg, add_comm b]
+  exact add_le_add_left h (-a)
+
 
 example (h: 0 ≤ b - a) : a ≤ b := by
-  sorry
+  have := add_le_add_left h a
+  rw [add_comm a (b - a), sub_eq_add_neg, add_assoc, neg_add_cancel, add_zero, add_zero] at this
+  exact this
 
 example (h : a ≤ b) (h' : 0 ≤ c) : a * c ≤ b * c := by
-  sorry
+  have : 0 ≤ (b - a) * c := by
+    apply mul_nonneg
+    . show 0 ≤ b - a
+      rw [← sub_self a, sub_eq_add_neg, add_comm, sub_eq_add_neg, add_comm b]
+      exact add_le_add_left h (-a)
+    exact h'
+  rw [sub_mul] at this
+  rw [← add_zero (a * c), ← sub_add_cancel (b * c) (a * c), add_comm (b * c - a * c)]
+  apply add_le_add_left this
 
 end
 

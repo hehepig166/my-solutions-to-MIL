@@ -13,6 +13,7 @@
 * `exact`, `apply`
 * `calc`
 * `trans`
+* `cases`, `cases'`
 
 
 
