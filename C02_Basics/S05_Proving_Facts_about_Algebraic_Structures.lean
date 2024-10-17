@@ -135,14 +135,11 @@ variable (a b c : α)
 
 example (h : ∀ x y z : α, x ⊓ (y ⊔ z) = x ⊓ y ⊔ x ⊓ z) : a ⊔ b ⊓ c = (a ⊔ b) ⊓ (a ⊔ c) := by
   rw [h (a ⊔ b) a c]
-  rw [inf_comm (a ⊔ b) a, h, inf_idem, absorb2]
-  have : (a ⊔ b) ⊓ a = a := by
-    rw [inf_comm (a ⊔ b) a, h, inf_idem, absorb2]
-
-
-  sorry
+  rw [inf_comm (a ⊔ b), absorb1]
+  rw [inf_comm (a ⊔ b), h, ← sup_assoc, inf_comm c a, absorb2, inf_comm c b]
 
 example (h : ∀ x y z : α, x ⊔ y ⊓ z = (x ⊔ y) ⊓ (x ⊔ z)) : a ⊓ (b ⊔ c) = a ⊓ b ⊔ a ⊓ c := by
+
   sorry
 
 end
