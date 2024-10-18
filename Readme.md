@@ -84,5 +84,8 @@
   
   * `variable {α : Type*} [DistribLattice α]`
   
+  * `variable {X : Type*} [MetricSpace X]`
+    * A *metric space* consists of a set equipped with a notion of distance, `dist x y`, mapping any pair of elements to a real number.
+  
 * test
 

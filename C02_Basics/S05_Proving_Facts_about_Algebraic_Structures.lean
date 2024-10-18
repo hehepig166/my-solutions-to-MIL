@@ -187,6 +187,8 @@ variable (x y z : X)
 #check (dist_triangle x y z : dist x z ≤ dist x y + dist y z)
 
 example (x y : X) : 0 ≤ dist x y := by
-  sorry
+  have := dist_triangle y x y
+  rw [dist_self, dist_comm, ← two_mul] at this
+  linarith
 
 end
