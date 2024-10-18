@@ -11,17 +11,19 @@
 
 * `rw`
 * `exact`, `apply`
+* `simp`, `dsimp`
 * `calc`
 * `trans`
 * `cases`, `cases'`
 
 
 
-## C02
+## C02 Basics
 
 * S01 Calculating
   * `rw`
   * `exact`
+  
 * S02 Proving Identities in Algebraic Structures
   * `apply`
   * `rfl`
@@ -29,6 +31,7 @@
   * `have`
   * `norm_num`
   * `[AddGroup A], [CommGroup], [AddCommGroup]`
+  
 * S03 Using Theorems and Lemmas
   *  `apply`: tries to match the conclusion with the current goal, and leaves the hypotheses, if any, as new goals
   * `.`: within the block introduced by the dot, only one goal is visible, and it must be completed before the end of the block.
@@ -45,6 +48,7 @@
   * Mathlib tends to favor `≤` over `≥`
   * `linarith`
   * use `constructor` tactic to split a conjunction to two goals
+  
 * S04 More examples using apply and rw
   * currying
   * `show`
@@ -87,5 +91,47 @@
   * `variable {X : Type*} [MetricSpace X]`
     * A *metric space* consists of a set equipped with a notion of distance, `dist x y`, mapping any pair of elements to a real number.
   
-* test
+  
+  
+  
+## C03
+
+
+
+## C04
+
+
+
+## C05
+
+
+
+## C06 Structures
+
+* S01 Defining structures
+
+  * An *instance* of the structure is a particular bundle of data satisfying the constraints.
+
+  * ```
+    structure Point where
+      x : ℝ
+      y : ℝ
+      z : ℝ
+    ```
+
+  * `@[ext]`, extensionality
+
+  * the constructor for a structure
+
+  * functions on structures
+
+  * anonymous projection notation, `a.add b` instead of `Point.add a b`
+
+  * `protected`
+
+  * pattern matching
+
+  * `noncomputable section`
+
+  * Structures can depend on parameters.
 

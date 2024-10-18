@@ -1,4 +1,5 @@
-import MIL.Common
+import Mathlib.Tactic
+import Mathlib.Util.Delaborators
 import Mathlib.Algebra.BigOperators.Ring
 import Mathlib.Data.Real.Basic
 
@@ -81,14 +82,14 @@ theorem addAlt_comm (a b : Point) : addAlt a b = addAlt b a := by
   repeat' apply add_comm
 
 protected theorem add_assoc (a b c : Point) : (a.add b).add c = a.add (b.add c) := by
-  sorry
+  simp [Point.add, add_assoc]
 
 def smul (r : ℝ) (a : Point) : Point :=
-  sorry
+  ⟨r * a.x, r * a.y, r * a.z⟩
 
 theorem smul_distrib (r : ℝ) (a b : Point) :
     (smul r a).add (smul r b) = smul r (a.add b) := by
-  sorry
+  simp [smul, Point.add, mul_add]
 
 end Point
 
@@ -127,7 +128,22 @@ def midpoint (a b : StandardTwoSimplex) : StandardTwoSimplex
 
 def weightedAverage (lambda : Real) (lambda_nonneg : 0 ≤ lambda) (lambda_le : lambda ≤ 1)
     (a b : StandardTwoSimplex) : StandardTwoSimplex :=
-  sorry
+  have t1 {x y : ℝ} (hx : 0 ≤ x) (hy : 0 ≤ y) : 0 ≤ lambda * x + (1 - lambda) * y := by
+    have h1 : 0 ≤ lambda * x := mul_nonneg lambda_nonneg hx
+    have h2 : 0 ≤ (1 - lambda) * y := mul_nonneg (by linarith) hy
+    exact add_nonneg h1 h2
+  have t2 : lambda * a.x + (1 - lambda) * b.x + (lambda * a.y + (1 - lambda) * b.y) + (lambda * a.z + (1 - lambda) * b.z) = 1 := by
+    trans (a.x + a.y + a.z) * lambda + (b.x + b.y + b.z) * (1 - lambda)
+    . ring
+    simp [a.sum_eq, b.sum_eq]
+  StandardTwoSimplex.mk
+    (lambda * a.x + (1 - lambda) * b.x)
+    (lambda * a.y + (1 - lambda) * b.y)
+    (lambda * a.z + (1 - lambda) * b.z)
+    (t1 a.x_nonneg b.x_nonneg)
+    (t1 a.y_nonneg b.y_nonneg)
+    (t1 a.z_nonneg b.z_nonneg)
+    (t2)
 
 end
 
@@ -206,4 +222,3 @@ variable (s : StdSimplex)
 #check s.2
 
 end
-
