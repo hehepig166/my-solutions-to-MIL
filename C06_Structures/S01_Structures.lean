@@ -156,6 +156,18 @@ structure StandardSimplex (n : ℕ) where
   NonNeg : ∀ i : Fin n, 0 ≤ V i
   sum_eq_one : (∑ i, V i) = 1
 
+def weightedAverage {n : ℕ} (lambda : Real) (lambda_nonneg : 0 ≤ lambda) (lambda_le : lambda ≤ 1)
+    (a b : StandardSimplex n) : StandardSimplex n where
+  V i := lambda * a.V i + (1 - lambda) * b.V i
+  NonNeg i := add_nonneg
+    (mul_nonneg lambda_nonneg (a.NonNeg i))
+    (mul_nonneg (by linarith) (b.NonNeg i))
+  sum_eq_one := by
+    rw [Finset.sum_add_distrib]
+    rw [← Finset.mul_sum, a.sum_eq_one]
+    rw [← Finset.mul_sum, b.sum_eq_one]
+    ring
+
 namespace StandardSimplex
 
 def midpoint (n : ℕ) (a b : StandardSimplex n) : StandardSimplex n

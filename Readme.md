@@ -4,6 +4,9 @@
 * MIL source https://github.com/leanprover-community/mathematics_in_lean
 * API documentation https://leanprover-community.github.io/mathlib4_docs/
 * contrl_space
+* https://leanprover-community.github.io/blog/posts/basic-probability-in-mathlib/
+* The Mechanics of Proof https://hrmacbeth.github.io/math2001/index.html
+* Theorem Proving in LEAN4 https://leanprover.github.io/theorem_proving_in_lean4/
 
 
 
@@ -134,4 +137,24 @@
   * `noncomputable section`
 
   * Structures can depend on parameters.
-
+  
+  * `Finset.sum_add_distrib`, `Finset.mul_sum`
+  
+  * products
+  
+    * `def Point'' := ℝ × ℝ × ℝ`
+  
+  * subtype construction
+  
+    * `def PReal := { y : Real // 0 < y}`
+    * `PReal.val, PReal.property`
+  
+  * Sigma types
+  
+    * generalizations of ordered pairs
+  
+    * `def StdSimplex := Σ n : ℕ, StandardSimplex n`
+  
+    * `.fst`, `.snd`
+  
+  * using structures has a number of advantages
