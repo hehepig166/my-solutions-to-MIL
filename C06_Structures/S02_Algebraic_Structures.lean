@@ -1,4 +1,5 @@
-import MIL.Common
+import Mathlib.Tactic
+import Mathlib.Util.Delaborators
 import Mathlib.Data.Real.Basic
 
 namespace C06S02
@@ -67,11 +68,21 @@ namespace Point
 def add (a b : Point) : Point :=
   ⟨a.x + b.x, a.y + b.y, a.z + b.z⟩
 
-def neg (a : Point) : Point := sorry
+def neg (a : Point) : Point :=
+  ⟨-a.x, -a.y, -a.z⟩
 
-def zero : Point := sorry
+def zero : Point :=
+  ⟨0, 0, 0⟩
 
-def addGroupPoint : AddGroup₁ Point := sorry
+def addGroupPoint : AddGroup₁ Point
+    where
+  add := Point.add
+  zero := Point.zero
+  neg := Point.zero
+  add_assoc := by sorry
+  add_zero := by sorry
+  zero_add := by sorry
+  neg_add_cancel := by sorry
 
 end Point
 

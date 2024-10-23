@@ -158,3 +158,35 @@
     * `.fst`, `.snd`
   
   * using structures has a number of advantages
+
+* S02 Algebraic Structures
+
+  * `#print Group`
+
+  * `structure GroupCat`
+
+  * ```Lean
+    variable (f : α ≃ β) (g : β ≃ γ)
+    
+    #check Equiv α β
+    #check (f.toFun : α → β)
+    #check (f.invFun : β → α)
+    #check (f.right_inv : ∀ x : β, f (f.invFun x) = x)
+    #check (f.left_inv : ∀ x : α, f.invFun (f x) = x)
+    #check (Equiv.refl α : α ≃ α)
+    #check (f.symm : β ≃ α)
+    #check (f.trans g : α ≃ γ)
+    ```
+
+    ```
+    example (x : α) : (f.trans g).toFun x = g.toFun (f.toFun x) :=
+      rfl
+    
+    example (x : α) : (f.trans g) x = g (f x) :=
+      rfl
+    
+    example : (f.trans g : α → γ) = g ∘ f :=
+      rfl
+    ```
+
+  * `Equiv.perm`
