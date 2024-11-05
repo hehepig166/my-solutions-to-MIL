@@ -161,23 +161,29 @@
 
 * S02 Algebraic Structures
 
+  * carrier set
+
+  * algebraic structures lead dual lives in mathematics, as containers for collections of objects and as objects in their own right.
+
   * `#print Group`
-
+  
   * `structure GroupCat`
-
+  
   * ```Lean
     variable (f : α ≃ β) (g : β ≃ γ)
     
     #check Equiv α β
+    
     #check (f.toFun : α → β)
     #check (f.invFun : β → α)
     #check (f.right_inv : ∀ x : β, f (f.invFun x) = x)
     #check (f.left_inv : ∀ x : α, f.invFun (f x) = x)
+    
     #check (Equiv.refl α : α ≃ α)
     #check (f.symm : β ≃ α)
     #check (f.trans g : α ≃ γ)
     ```
-
+  
     ```
     example (x : α) : (f.trans g).toFun x = g.toFun (f.toFun x) :=
       rfl
@@ -188,5 +194,20 @@
     example : (f.trans g : α → γ) = g ∘ f :=
       rfl
     ```
-
+  
   * `Equiv.perm`
+  
+  * `Group` -> `mul`, `one`, `inv`
+  
+  * `AddGroup` -> `add`, `zero`, `neg`
+  
+  * associate notation with structures -> use it with any particular instance
+  
+  * `()`, `{}`, `[]`
+  
+    * When we use the anonymous square-bracket annotation with the `variables` command, then as long as the variables are still in scope, Lean automatically adds the argument `[Group G]` to any definition or theorem that mentions `G`.
+  
+  * `class - instance`
+  
+  * `structure - def`
+  

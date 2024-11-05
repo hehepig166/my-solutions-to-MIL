@@ -55,8 +55,14 @@ def permGroup {α : Type*} : Group₁ (Equiv.Perm α)
   inv_mul_cancel := Equiv.self_trans_symm
 
 structure AddGroup₁ (α : Type*) where
-  (add : α → α → α)
-  -- fill in the rest
+  add : α → α → α
+  zero : α
+  neg : α → α
+  add_assoc : ∀ x y z : α, add (add x y) z = add x (add y z)
+  add_zero : ∀ x : α, add x zero = x
+  zero_add : ∀ x : α, add zero x = x
+  neg_add_cancel : ∀ x : α, add (neg x) x = zero
+
 @[ext]
 structure Point where
   x : ℝ
@@ -78,11 +84,11 @@ def addGroupPoint : AddGroup₁ Point
     where
   add := Point.add
   zero := Point.zero
-  neg := Point.zero
-  add_assoc := by sorry
-  add_zero := by sorry
-  zero_add := by sorry
-  neg_add_cancel := by sorry
+  neg := Point.neg
+  add_assoc := by simp [Point.add, add_assoc]
+  add_zero := by simp [Point.add, Point.zero]
+  zero_add := by simp [Point.add, Point.zero]
+  neg_add_cancel := by simp [Point.add, Point.neg, Point.zero]
 
 end Point
 
